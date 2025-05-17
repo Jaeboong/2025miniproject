@@ -1,4 +1,4 @@
-const db = require('../models');
+const db = require('../../Global/models');
 const User = db.User;
 
 // 사용자 서비스 클래스

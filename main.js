@@ -1,7 +1,7 @@
 const express = require('express');
-const db = require('./models');
-const userRoutes = require('./routes/userRoutes');
-const errorHandler = require('./middlewares/errorHandler');
+const db = require('./src/Global/models');
+const globalRouter = require('./src/Global/globalRouter');
+const errorHandler = require('./src/Global/errorHandler');
 
 const app = express();
 const PORT = 3000;
@@ -10,30 +10,10 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 라우트 등록
-app.use('/api/users', userRoutes);
+// 글로벌 라우터 등록
+app.use('/api', globalRouter);
 
-// 루트 엔드포인트
-app.get('/', (req, res) => {
-  res.send('서버가 실행 중입니다!');
-});
-
-// 데이터베이스 연결 테스트
-app.get('/db-test', async (req, res) => {
-  try {
-    await db.sequelize.authenticate();
-    res.json({ 
-      message: '데이터베이스 연결 성공!' 
-    });
-  } catch (error) {
-    res.status(500).json({ 
-      message: '데이터베이스 연결 실패', 
-      error: error.message 
-    });
-  }
-});
-
-// 글로벌 에러 핸들러 등록 (모든 라우트 이후에 등록해야 함)
+// 글로벌 에러 핸들러 등록
 app.use(errorHandler);
 
 // Sequelize 동기화 및 서버 시작
