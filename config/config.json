@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "mini1234",
+    "password": "mini1234",
+    "database": "mini",
+    "host": "127.0.0.1",
+    "dialect": "mariadb"
+  },
+  "test": {
+    "username": "mini1234",
+    "password": "mini1234",
+    "database": "mini",
+    "host": "127.0.0.1",
+    "dialect": "mariadb"
+  },
+  "production": {
+    "username": "mini1234",
+    "password": "mini1234",
+    "database": "mini",
+    "host": "127.0.0.1",
+    "dialect": "mariadb"
+  }
+}
