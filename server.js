@@ -1,7 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-const db = require("./src/global/models.js");
+const db = require("./src/models/index.js");
 
 // HTML 경로 설정
 const filePath = path.join(__dirname, "client", "index.html");
