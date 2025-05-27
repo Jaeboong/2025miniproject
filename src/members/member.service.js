@@ -1,30 +1,27 @@
 // src/members/member.service.js
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { Member } = require("../global/models");
+const { member: Member } = require("../global/models"); // ✅ 소문자 member import 후 대문자 변수로 사용
 
-const JWT_SECRET = process.env.JWT_SECRET; // 보안용 키
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN; // 토큰 유효 기간
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
 
-if (!process.env.JWT_SECRET) {
+if (!JWT_SECRET) {
   console.error("❌ JWT_SECRET 값이 설정되지 않았습니다 (.env 확인)");
-  process.exit(1); // 서버 강제 종료
+  process.exit(1);
 }
 
 /**
  * 회원 가입 처리
  */
 async function registerMember({ email, name, password }) {
-  // 이메일 중복 확인
   const existing = await Member.findOne({ where: { email } });
   if (existing) {
     throw new Error("DUPLICATE_EMAIL");
   }
 
-  // 비밀번호 해시
   const hashedPw = await bcrypt.hash(password, 10);
 
-  // DB 저장
   const newMember = await Member.create({
     email,
     name,
@@ -32,7 +29,7 @@ async function registerMember({ email, name, password }) {
   });
 
   return {
-    memberId: newMember.member_id,
+    memberId: newMember.memberId, // ✅ 수정됨
     email: newMember.email,
     name: newMember.name,
   };
@@ -52,10 +49,9 @@ async function loginMember({ email, password }) {
     throw new Error("INVALID_CREDENTIALS");
   }
 
-  // JWT 토큰 발급
   const token = jwt.sign(
     {
-      memberId: member.member_id,
+      memberId: member.memberId, // ✅ 수정됨
       email: member.email,
       name: member.name,
     },
@@ -66,7 +62,7 @@ async function loginMember({ email, password }) {
   return {
     token,
     user: {
-      memberId: member.member_id,
+      memberId: member.memberId, // ✅ 수정됨
       name: member.name,
       email: member.email,
     },
@@ -83,7 +79,7 @@ async function getProfile(memberId) {
   }
 
   return {
-    memberId: member.member_id,
+    memberId: member.memberId,
     email: member.email,
     name: member.name,
   };
@@ -101,11 +97,11 @@ async function updateProfile(memberId, { name }) {
   }
 
   member.name = name;
-  member.modified_at = new Date();
+  member.modifiedAt = new Date(); // ✅ 수정: 카멜케이스
   await member.save();
 
   return {
-    memberId: member.member_id,
+    memberId: member.memberId,
     name: member.name,
     email: member.email,
   };

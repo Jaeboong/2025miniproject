@@ -5,8 +5,9 @@ module.exports = (sequelize) => {
   const Member = sequelize.define(
     "Member",
     {
-      member_id: {
+      memberId: {
         type: DataTypes.INTEGER,
+        field: "member_id", // DB 컬럼명
         primaryKey: true,
         autoIncrement: true,
       },
@@ -23,20 +24,22 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING(255),
         allowNull: false,
       },
-      created_at: {
+      createdAt: {
         type: DataTypes.DATE,
+        field: "created_at",
         allowNull: false,
         defaultValue: DataTypes.NOW,
       },
-      modified_at: {
+      modifiedAt: {
         type: DataTypes.DATE,
+        field: "modified_at",
         allowNull: false,
         defaultValue: DataTypes.NOW,
       },
     },
     {
       tableName: "members", // 실제 DB 테이블 이름
-      timestamps: false, // createdAt, updatedAt 자동 관리 사용 안 함
+      timestamps: false, // Sequelize 자동 타임스탬프 비활성화
     }
   );
 

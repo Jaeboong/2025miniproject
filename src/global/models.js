@@ -1,16 +1,11 @@
 "use strict";
 
-const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const process = require("process");
-const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require("../../config/config.json")[env];
 const db = {};
-
-const ProblemSet = require("../models/problemSet.model"); // 또는 ../models/
-db[ProblemSet.name] = ProblemSet;
 
 // Sequelize 인스턴스 생성
 let sequelize;
@@ -25,25 +20,25 @@ if (config.use_env_variable) {
   );
 }
 
+// 모델 등록
 const Member = require("../models/member.model")(sequelize);
-db.Member = Member;
+const ProblemSet = require("../models/problemSet.model")(sequelize);
 
-// // User 모델 등록
-// const User = require("../User/models/user")(sequelize, Sequelize.DataTypes);
-// db[User.name] = User;
+db.member = Member;
+db.problemSet = ProblemSet;
 
-// 여기에 다른 모델들 추가
-// 예: const Post = require('../Post/models/post')(sequelize, Sequelize.DataTypes);
-// db[Post.name] = Post;
-
-// 모델 간 관계 설정
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+// 🔗 관계 설정
+// 한 명의 회원은 여러 문제세트를 가질 수 있음
+db.member.hasMany(db.problemSet, {
+  foreignKey: "memberId", // JS 모델 필드명
 });
 
-// Sequelize 인스턴스와 클래스 추가
+// 문제세트는 하나의 회원에 속함
+db.problemSet.belongsTo(db.member, {
+  foreignKey: "memberId",
+});
+
+// Sequelize 인스턴스와 Sequelize 라이브러리 자체도 함께 export
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
