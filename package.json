@@ -5,7 +5,9 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mariadb": "^3.4.2",
+    "multer": "^2.0.0",
     "mysql2": "^3.14.1",
+    "openai": "^4.103.0",
     "sequelize": "^6.37.7",
     "sequelize-cli": "^6.6.3"
   },

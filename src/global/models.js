@@ -9,6 +9,9 @@ const env = process.env.NODE_ENV || "development";
 const config = require("../../config/config.json")[env];
 const db = {};
 
+const ProblemSet = require("../models/problemSet.model"); // 또는 ../models/
+db[ProblemSet.name] = ProblemSet;
+
 // Sequelize 인스턴스 생성
 let sequelize;
 if (config.use_env_variable) {
@@ -22,7 +25,7 @@ if (config.use_env_variable) {
   );
 }
 
-const Member = require("../members/member.model")(sequelize);
+const Member = require("../models/member.model")(sequelize);
 db.Member = Member;
 
 // // User 모델 등록

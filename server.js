@@ -14,6 +14,9 @@ app.use(express.json()); // ✅ JSON 바디 파싱
 const memberRoutes = require("./src/members/member.route");
 app.use("/api/users", memberRoutes);
 
+const aiUploadRoutes = require("./src/ai/upload");
+app.use("/api/ai", aiUploadRoutes);
+
 // HTML 파일 응답
 const filePath = path.join(__dirname, "client", "index.html");
 app.get("/", (req, res) => {

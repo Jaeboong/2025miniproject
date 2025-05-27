@@ -1,5 +1,5 @@
-const ProblemSet = require('../models/ProblemSet');
-const { generateProblems } = require('../services/gptService');
+const ProblemSet = require("../models/problemSet.model");
+const { generateProblems } = require("./gptService");
 
 const uploadFile = async (req, res) => {
   try {
@@ -20,18 +20,18 @@ const uploadFile = async (req, res) => {
       problemCount,
       questionType,
       difficultyLevel,
-      problems
+      problems,
     });
 
     await problemSet.save();
 
     res.json({ success: true, problemSet });
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
 module.exports = {
-  uploadFile
-}; 
+  uploadFile,
+};
