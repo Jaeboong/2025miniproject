@@ -22,6 +22,9 @@ if (config.use_env_variable) {
   );
 }
 
+const Member = require("../members/member.model")(sequelize);
+db.Member = Member;
+
 // // User 모델 등록
 // const User = require("../User/models/user")(sequelize, Sequelize.DataTypes);
 // db[User.name] = User;
