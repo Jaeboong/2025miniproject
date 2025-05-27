@@ -3,8 +3,13 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { Member } = require("../global/models");
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret"; // 보안용 키
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1d"; // 토큰 유효 기간
+const JWT_SECRET = process.env.JWT_SECRET; // 보안용 키
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN; // 토큰 유효 기간
+
+if (!process.env.JWT_SECRET) {
+  console.error("❌ JWT_SECRET 값이 설정되지 않았습니다 (.env 확인)");
+  process.exit(1); // 서버 강제 종료
+}
 
 /**
  * 회원 가입 처리
