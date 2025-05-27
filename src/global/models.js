@@ -7,6 +7,7 @@ const process = require("process");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require("../../config/config.json")[env];
+const { Study } = require("../study/studyModel");
 const db = {};
 
 
@@ -23,6 +24,7 @@ if (config.use_env_variable) {
   );
 }
 
+
 // // User 모델 등록
 // const User = require("../User/models/user")(sequelize, Sequelize.DataTypes);
 // db[User.name] = User;
@@ -31,6 +33,9 @@ if (config.use_env_variable) {
 // 예: const Post = require('../Post/models/post')(sequelize, Sequelize.DataTypes);
 // db[Post.name] = Post;
 
+// Study 모델 등록
+const studyModel = Study(sequelize);
+db[studyModel.name] = studyModel;
 
 // 모델 간 관계 설정
 Object.keys(db).forEach((modelName) => {
