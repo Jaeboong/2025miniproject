@@ -1,38 +1,25 @@
-const http = require("http");
-const fs = require("fs");
-const path = require("path");
-const db = require("./src/global/models.js");
+const express = require('express');
+const mongoose = require('mongoose');
+const path = require('path');
+require('dotenv').config();
 
-// HTML 경로 설정
-const filePath = path.join(__dirname, "client", "index.html");
+const uploadRoutes = require('./src/routes/upload');
 
-// 서버 생성
-const server = http.createServer((req, res) => {
-  if (req.url === "/") {
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        res.writeHead(500, { "Content-Type": "text/plain" });
-        res.end("서버 내부 오류 발생");
-      } else {
-        res.writeHead(200, { "Content-Type": "text/html; charset=UTF-8" });
-        res.end(data);
-      }
-    });
-  } else {
-    res.writeHead(404, { "Content-Type": "text/plain" });
-    res.end("페이지를 찾을 수 없습니다");
-  }
+const app = express();
+const port = process.env.PORT || 3000;
+
+// MongoDB 연결
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// 미들웨어 설정
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 라우트 설정
+app.use('/api/upload', uploadRoutes);
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
-
-// Sequelize 동기화 후 http 서버 실행
-db.sequelize
-  .sync({ force: false })
-  .then(() => {
-    console.log("데이터베이스 동기화 완료");
-    server.listen(3000, () => {
-      console.log("✅ 서버가 http://localhost:3000 에서 실행 중입니다!");
-    });
-  })
-  .catch((err) => {
-    console.error("데이터베이스 동기화 오류:", err);
-  });
