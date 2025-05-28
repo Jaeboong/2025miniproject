@@ -101,15 +101,25 @@ async function updateProfile(req, res) {
 /**
  * 회원 탈퇴
  */
+// 🔽 계정 삭제 - 비밀번호 확인 추가
 async function deleteAccount(req, res) {
   try {
     const memberId = req.user.memberId;
-    await memberService.deleteMember(memberId);
+    const { password } = req.body;
+
+    if (!password) {
+      return res.status(400).json({ error: "비밀번호가 필요합니다" });
+    }
+
+    await memberService.deleteMember(memberId, password);
 
     return res.status(204).send();
   } catch (err) {
     if (err.message === "NOT_FOUND") {
       return res.status(404).json({ error: "사용자 정보 없음" });
+    }
+    if (err.message === "INVALID_PASSWORD") {
+      return res.status(401).json({ error: "비밀번호가 일치하지 않습니다" });
     }
 
     console.error(err);

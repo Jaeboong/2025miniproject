@@ -110,9 +110,13 @@ async function updateProfile(memberId, { name }) {
 /**
  * 계정 삭제
  */
-async function deleteMember(memberId) {
+// 🔽 계정 삭제 - 비밀번호 검증 포함
+async function deleteMember(memberId, password) {
   const member = await Member.findByPk(memberId);
   if (!member) throw new Error("NOT_FOUND");
+
+  const isMatch = await bcrypt.compare(password, member.password);
+  if (!isMatch) throw new Error("INVALID_PASSWORD");
 
   await member.destroy();
 }
