@@ -7,7 +7,7 @@ const db = require("./src/global/models.js");
 const filePath = path.join(__dirname, "client", "index.html");
 
 // 서버 생성
-const server = http.createServer((req, res) => {
+/* const server = http.createServer((req, res) => {
   if (req.url === "/") {
     fs.readFile(filePath, (err, data) => {
       if (err) {
@@ -23,6 +23,7 @@ const server = http.createServer((req, res) => {
     res.end("페이지를 찾을 수 없습니다");
   }
 });
+*/
 
 // Sequelize 동기화 후 http 서버 실행
 db.sequelize
