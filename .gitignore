@@ -1,7 +1,7 @@
 # 의존성
-/node_modules
-/package-lock.json
-/yarn.lock
+node_modules/
+package-lock.json/
+yarn.lock/
 
 # 환경 변수
 .env
