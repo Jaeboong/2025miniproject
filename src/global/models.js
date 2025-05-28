@@ -29,6 +29,9 @@ if (config.use_env_variable) {
 // 여기에 다른 모델들 추가
 // 예: const Post = require('../Post/models/post')(sequelize, Sequelize.DataTypes);
 // db[Post.name] = Post;
+const Problem = require("../../src/models/problemModel")(sequelize, Sequelize.DataTypes);
+db[Problem.name] = Problem; // 추가된 줄
+
 
 // 모델 간 관계 설정
 Object.keys(db).forEach((modelName) => {
