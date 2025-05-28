@@ -5,7 +5,7 @@ const Sequelize = require("sequelize");
 const process = require("process");
 const env = process.env.NODE_ENV || "development";
 const config = require("../../config/config.json")[env];
-const { Study } = require("../study/studyModel");
+const { Study } = require("../models/studyModel");
 const db = {};
 
 // Sequelize 인스턴스 생성
