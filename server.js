@@ -25,6 +25,9 @@ const filePath = path.join(__dirname, "client", "index.html");
 });
 */
 
+// 서버 생성 (기존 http.createServer 대신 Express 사용)
+const server = http.createServer(app);
+
 // Sequelize 동기화 후 http 서버 실행
 db.sequelize
   .sync({ force: false })
