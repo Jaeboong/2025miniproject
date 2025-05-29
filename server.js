@@ -3,11 +3,13 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const db = require("./src/global/models");
+const cors = require("cors");
 const app = express();
 
 // 📌 미들웨어 설정
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 const globalRoutes = require("./src/global/routes");
 app.use("/api", globalRoutes);
