@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-const globalRoutes = require("./src/global/routes");
+const globalRoutes = require("./src/global");
 app.use("/api", globalRoutes);
 
 // 📌 정적 파일 (index.html) 제공
