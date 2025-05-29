@@ -3,21 +3,14 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const db = require("./src/global/models");
-
-const studyRoutes = require("./src/study/studyRoutes");
-const memberRoutes = require("./src/members/member.route");
-const aiUploadRoutes = require("./src/ai/upload");
-
 const app = express();
 
 // 📌 미들웨어 설정
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 📌 라우터 설정
-app.use("/", studyRoutes);
-app.use("/api/users", memberRoutes);
-app.use("/api/ai", aiUploadRoutes);
+const globalRoutes = require("./src/global/routes");
+app.use("/api", globalRoutes);
 
 // 📌 정적 파일 (index.html) 제공
 const filePath = path.join(__dirname, "client", "index.html");
