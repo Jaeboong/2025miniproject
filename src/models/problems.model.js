@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         field: "difficulty_level",
         allowNull: false,
+      },
       question: {
         type: DataTypes.STRING,
       },
