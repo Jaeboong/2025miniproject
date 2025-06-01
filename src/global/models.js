@@ -1,10 +1,8 @@
+// src/global/models.js
 "use strict";
 
-const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
-const process = require("process");
-const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require("../../config/config.json")[env];
 const db = {};
@@ -22,22 +20,28 @@ if (config.use_env_variable) {
   );
 }
 
-// // User 모델 등록
-// const User = require("../User/models/user")(sequelize, Sequelize.DataTypes);
-// db[User.name] = User;
+// 모델 등록
+const Member = require("../models/member.model")(
+  sequelize,
+  Sequelize.DataTypes
+);
+const ProblemSet = require("../models/problemSet.model")(
+  sequelize,
+  Sequelize.DataTypes
+);
+const Problem = require("../models/problems.model")(
+  sequelize,
+  Sequelize.DataTypes
+); // ✅ 수정된 부분
 
-// 여기에 다른 모델들 추가
-// 예: const Post = require('../Post/models/post')(sequelize, Sequelize.DataTypes);
-// db[Post.name] = Post;
+db.member = Member;
+db.problemSet = ProblemSet;
+db.problem = Problem; // ✅ 등록
 
-// 모델 간 관계 설정
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
+// 모델 관계 설정
+db.member.hasMany(db.problemSet, { foreignKey: "member_id" });
+db.problemSet.belongsTo(db.member, { foreignKey: "member_id" });
 
-// Sequelize 인스턴스와 클래스 추가
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
