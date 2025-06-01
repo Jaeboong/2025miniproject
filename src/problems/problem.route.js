@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../global/models.js");
 
-// ✅ 전체 문제 조회
+// 전체 문제 조회
 router.get("/", async (req, res) => {
   try {
     const problems = await db.problem.findAll(); // 소문자 db.problem
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// ✅ 문제 정답 제출
+// 문제 정답 제출
 router.post("/:problemId/submit", async (req, res) => {
   try {
     const problemId = parseInt(req.params.problemId);
