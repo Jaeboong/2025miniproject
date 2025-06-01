@@ -7,7 +7,7 @@ Node.js/Express 기반의 백엔드 API 서버입니다.
 ### 전제 조건
 - Ubuntu Server 환경
 - 도메인: `jhhackathon.store`
-- 서버 IP: `1.247.204.214`
+- 서버 IP: `00000000000000`
 - 포트포워딩 설정 완료
 
 ### 1단계: 서버 환경 구축
@@ -62,7 +62,7 @@ JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 
 # Application Configuration
 DOMAIN=jhhackathon.store
-SERVER_IP=1.247.204.214
+SERVER_IP=000000000000000
 
 # CORS Configuration
 CORS_ORIGIN=https://jhhackathon.store

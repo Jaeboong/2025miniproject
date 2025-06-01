@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mariadb:
     image: mariadb:latest
-    container_name: notice
+    container_name: miniproject
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: mini

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # 🚀 Ubuntu 서버 배포 스크립트
-# jhhackathon.store (1.247.204.214)
 
 set -e
 
@@ -100,6 +99,7 @@ sudo ufw allow 443
 sudo ufw allow 3000
 sudo ufw allow 3306
 sudo ufw allow 9008
+sudo ufw allow 22
 sudo ufw --force enable
 
 log_info "✅ 서버 환경 설정 완료!"
