@@ -3,7 +3,8 @@ const router = express.Router();
 
 const studyController = require("./studyController");
 
-router.get("/summary/:member_id", studyController.getUserStudySummary);
-router.get("/wrong/:member_id", studyController.getWrongNotes);
+// md 설계에 맞게 라우트 경로 수정
+router.get("/user-studyset/:member_id", studyController.getUserStudySummary);
+router.get("/wrongproblems/:member_id", studyController.getWrongNotes);
 
 module.exports = router;
