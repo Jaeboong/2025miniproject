@@ -34,6 +34,8 @@ const uploadFile = async (req, res) => {
         options: problemData.options,
         answer: problemData.answer,
         explanation: problemData.explanation || null,
+        questionType,
+        difficultyLevel
       });
     }
 
