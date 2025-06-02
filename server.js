@@ -13,9 +13,11 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 // 📌 CORS 설정
 const corsOptions = {
   origin: NODE_ENV === 'production' 
-    ? ['https://jhhackathon.store', 'https://www.jhhackathon.store']
+    ? ['https://jhhackathon.store', 'https://www.jhhackathon.store', 'https://jaeboong.github.io']
     : true,
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200
 };
 
