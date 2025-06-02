@@ -1,7 +1,9 @@
 // src/models/problems.model.js
 "use strict";
 
-module.exports = (sequelize, DataTypes) => {
+const { DataTypes } = require("sequelize");
+
+module.exports = (sequelize) => {
   const Problem = sequelize.define(
     "Problem",
     {
@@ -14,10 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       problemSetId: {
         type: DataTypes.INTEGER,
         field: "problem_set_id",
-      },
-      memberId: {
-        type: DataTypes.INTEGER,
-        field: "member_id",
+        allowNull: false,
       },
       questionType: {              
         type: DataTypes.STRING,
@@ -30,13 +29,25 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       question: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
+        allowNull: false,
       },
       options: {
         type: DataTypes.JSON,
+        allowNull: false,
       },
       answer: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(5),
+        allowNull: false,
+      },
+      explanation: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        field: "created_at",
+        defaultValue: DataTypes.NOW,
       },
     },
     {

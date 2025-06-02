@@ -15,15 +15,14 @@ module.exports = (sequelize) => {
         field: "member_id",
         allowNull: false,
       },
-      fileContent: {
-        type: DataTypes.TEXT,
-        field: "file_content",
+      title: {
+        type: DataTypes.STRING(100),
         allowNull: false,
+        defaultValue: "Untitled Problem Set",
       },
-      problemCount: {
-        type: DataTypes.INTEGER,
-        field: "problem_count",
-        allowNull: false,
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
       },
       questionType: {
         type: DataTypes.STRING,
@@ -35,11 +34,10 @@ module.exports = (sequelize) => {
         field: "difficulty_level",
         allowNull: false,
       },
-      problem: {
-        // 기존 problems → ERD와 일치하도록 단수화
-        type: DataTypes.JSON,
-        field: "problem",
+      subject: {
+        type: DataTypes.STRING(50),
         allowNull: false,
+        defaultValue: "General",
       },
       createdAt: {
         type: DataTypes.DATE,
